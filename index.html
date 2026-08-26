@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Hell to Onam</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: black;
+            font-family: Georgia, serif;
+        }
+
+
+        /* =========================
+           HELL SCREEN
+        ========================= */
+
+        #hell {
+
+            position: fixed;
+            inset: 0;
+
+            background-image:
+                url("hell.png");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            transition:
+                transform 3s ease,
+                opacity 2s ease;
+
+            z-index: 2;
+        }
+
+
+        /* HORROR ZOOM */
+
+        #hell.zoom {
+
+            transform: scale(8);
+            opacity: 0;
+        }
+
+
+        /* =========================
+           NAME BOX
+        ========================= */
+
+        .box {
+
+            width: 80%;
+            max-width: 500px;
+
+            margin-top: 300px;
+
+            text-align: center;
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 16px;
+
+            background:
+                rgba(0,0,0,.85);
+
+            border:
+                2px solid #d69b3c;
+
+            border-radius: 10px;
+
+            color: white;
+
+            font-size: 20px;
+
+            text-align: center;
+
+            outline: none;
+
+            box-shadow:
+                0 0 15px rgba(255,50,0,.4);
+        }
+
+
+        input::placeholder {
+
+            color: #d0a66b;
+        }
+
+
+        /* =========================
+           HORROR OK BUTTON
+        ========================= */
+
+        button {
+
+            margin-top: 20px;
+
+            padding:
+                16px 70px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #3b0805,
+                    #100000
+                );
+
+            color: #ffbd4a;
+
+            border:
+                2px solid #9b3518;
+
+            border-radius: 8px;
+
+            font-family: Georgia, serif;
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            letter-spacing: 4px;
+
+            text-shadow:
+                0 0 5px #ff6a00,
+                0 0 12px red;
+
+            box-shadow:
+                0 0 10px red,
+                0 0 30px
+                rgba(255,30,0,.7),
+                inset 0 0 15px black;
+
+            cursor: pointer;
+
+            transition: .25s;
+        }
+
+
+        button:hover {
+
+            transform: scale(1.08);
+
+            box-shadow:
+                0 0 15px red,
+                0 0 40px #ff2600,
+                inset 0 0 20px #550000;
+        }
+
+
+        button:active {
+
+            transform: scale(.92);
+        }
+
+
+        /* =========================
+           ONAM SCREEN
+        ========================= */
+
+        #onam {
+
+            position: fixed;
+            inset: 0;
+
+            background-image:
+                url("onam.png");
+
+            background-size: cover;
+            background-position: center;
+
+            opacity: 0;
+
+            transform: scale(1.15);
+
+            transition:
+                opacity 2s ease,
+                transform 3s ease;
+
+            z-index: 1;
+        }
+
+
+        #onam.show {
+
+            opacity: 1;
+
+            transform: scale(1);
+        }
+
+
+        /* =========================
+           ONAM MESSAGE
+        ========================= */
+
+        #message {
+
+            position: absolute;
+
+            left: 50%;
+
+            bottom: 7%;
+
+            transform:
+                translateX(-50%);
+
+            width: 85%;
+
+            max-width: 700px;
+
+            padding: 20px;
+
+            background:
+                rgba(50,20,5,.87);
+
+            border:
+                2px solid gold;
+
+            border-radius: 15px;
+
+            color: #ffe6a3;
+
+            text-align: center;
+
+            font-size: 22px;
+
+            line-height: 1.5;
+
+            box-shadow:
+                0 0 25px
+                rgba(255,180,50,.6);
+
+            opacity: 0;
+
+            transition:
+                opacity 2s ease;
+        }
+
+
+        #message.show {
+
+            opacity: 1;
+        }
+
+
+        /* =========================
+           FALLING FLOWERS
+        ========================= */
+
+        .flower {
+
+            position: fixed;
+
+            top: -50px;
+
+            z-index: 10;
+
+            pointer-events: none;
+
+            font-size: 25px;
+
+            animation:
+                fall linear forwards;
+        }
+
+
+        @keyframes fall {
+
+            0% {
+
+                transform:
+                    translateY(-50px)
+                    rotate(0deg);
+
+                opacity: 0;
+            }
+
+
+            10% {
+
+                opacity: 1;
+            }
+
+
+            50% {
+
+                transform:
+                    translateY(50vh)
+                    translateX(40px)
+                    rotate(180deg);
+            }
+
+
+            100% {
+
+                transform:
+                    translateY(110vh)
+                    translateX(-60px)
+                    rotate(360deg);
+
+                opacity: 0;
+            }
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width:600px) {
+
+            .box {
+
+                width: 85%;
+
+                margin-top: 280px;
+            }
+
+
+            input {
+
+                font-size: 18px;
+
+                padding: 14px;
+            }
+
+
+            button {
+
+                font-size: 22px;
+
+                padding:
+                    14px 55px;
+            }
+
+
+            #message {
+
+                font-size: 17px;
+
+                bottom: 3%;
+
+                padding: 15px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         BACKGROUND MUSIC
+    ========================= -->
+
+    <audio
+        id="onamMusic"
+        loop>
+
+        <source
+            src="onam-music.mp3"
+            type="audio/mpeg">
+
+    </audio>
+
+
+
+    <!-- =========================
+         HELL PAGE
+    ========================= -->
+
+    <div id="hell">
+
+        <div class="box">
+
+            <input
+                type="text"
+                id="name"
+                maxlength="30"
+                placeholder="Enter Your Name">
+
+            <button
+                onclick="startOnam()">
+
+                OK
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         ONAM PAGE
+    ========================= -->
+
+    <div id="onam">
+
+        <div id="message"></div>
+
+    </div>
+
+
+
+    <script>
+
+
+        /* =========================
+           START ONAM EXPERIENCE
+        ========================= */
+
+        function startOnam() {
+
+
+            let name =
+                document
+                .getElementById("name")
+                .value
+                .trim();
+
+
+            /* Check name */
+
+            if (name === "") {
+
+                alert(
+                    "Please enter your name!"
+                );
+
+                return;
+            }
+
+
+            /* =========================
+               MUSIC SETUP
+            ========================= */
+
+            const music =
+                document.getElementById(
+                    "onamMusic"
+                );
+
+            music.volume = 0.35;
+
+
+            /* =========================
+               PERSONALIZED MESSAGE
+            ========================= */
+
+            document
+                .getElementById("message")
+                .innerHTML =
+
+                "🌸 <b>Happy Onam, "
+                + name +
+                "!</b> 🌸<br><br>" +
+
+                "May King Maveli bring " +
+                "happiness, peace, prosperity " +
+                "and beautiful moments to you " +
+                "and your family.<br><br>" +
+
+                "✨ Wishing you and your family " +
+                "a wonderful and joyful Onam! ✨";
+
+
+            /* =========================
+               HELL ZOOM
+            ========================= */
+
+            document
+                .getElementById("hell")
+                .classList
+                .add("zoom");
+
+
+            /* =========================
+               SHOW ONAM IMAGE
+            ========================= */
+
+            setTimeout(
+                function() {
+
+                    document
+                        .getElementById("onam")
+                        .classList
+                        .add("show");
+
+
+                    /*
+                     * ONAM IMAGE IS NOW APPEARING.
+                     *
+                     * Wait another 1 second
+                     * before music + flowers.
+                     */
+
+                    setTimeout(
+                        function() {
+
+
+                            /* =================
+                               START MUSIC
+                            ================= */
+
+                            music.play().catch(
+                                function() {
+
+                                    console.log(
+                                        "Music could not autoplay."
+                                    );
+
+                                }
+                            );
+
+
+                            /* =================
+                               START FLOWERS
+                            ================= */
+
+                            startFlowers();
+
+
+                        },
+                        1000
+                    );
+
+                },
+                1600
+            );
+
+
+            /* =========================
+               SHOW MESSAGE
+            ========================= */
+
+            setTimeout(
+                function() {
+
+                    document
+                        .getElementById("message")
+                        .classList
+                        .add("show");
+
+                },
+                3000
+            );
+
+        }
+
+
+
+        /* =========================
+           CREATE FLOWER
+        ========================= */
+
+        function createFlower() {
+
+
+            const flowers = [
+
+                "🌸",
+                "🌼",
+                "🌺",
+                "🌻"
+
+            ];
+
+
+            const flower =
+                document.createElement(
+                    "div"
+                );
+
+
+            flower.className =
+                "flower";
+
+
+            flower.innerHTML =
+                flowers[
+                    Math.floor(
+                        Math.random()
+                        * flowers.length
+                    )
+                ];
+
+
+            flower.style.left =
+                Math.random() * 100
+                + "vw";
+
+
+            flower.style.fontSize =
+                (15 +
+                Math.random() * 20)
+                + "px";
+
+
+            flower.style.animationDuration =
+                (4 +
+                Math.random() * 5)
+                + "s";
+
+
+            document.body.appendChild(
+                flower
+            );
+
+
+            setTimeout(
+                function() {
+
+                    flower.remove();
+
+                },
+                9000
+            );
+
+        }
+
+
+
+        /* =========================
+           CONTINUOUS FLOWERS
+        ========================= */
+
+        let flowersStarted = false;
+
+
+        function startFlowers() {
+
+
+            if (flowersStarted) {
+
+                return;
+
+            }
+
+
+            flowersStarted = true;
+
+
+            setInterval(
+                createFlower,
+                350
+            );
+
+        }
+
+
+    </script>
+
+
+</body>
+
+  </html>
